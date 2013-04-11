@@ -8,6 +8,7 @@ var mountFolder = function (connect, dir) {
 module.exports = function (grunt) {
 	// load all grunt tasks
 	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+	var helpers = require('helpers');
 
 	// configurable paths
 	var yeomanConfig = {
@@ -30,6 +31,29 @@ module.exports = function (grunt) {
 					'<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
 				],
 				tasks: ['livereload']
+			}
+		},
+		generator: {
+			options: {
+				partialsGlob: 'pages/partials/*.html',
+				templates: 'templates',
+				handlebarsHelpers: helpers,
+				environment: 'dev'
+			},
+			dev: {
+				files: [
+					{ cwd: 'app/pages', src: ['**/*'], dest: '.tmp', ext: '.html' }
+				],
+				options: {
+					environment: 'dev'
+				},
+			},
+			dist: {
+				files: [
+					{ cwd: 'app/pages', src: ['**/*'], dest: 'dist', ext: '.html' }
+				],
+				options: {
+				}
 			}
 		},
 		connect: {

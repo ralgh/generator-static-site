@@ -18,8 +18,8 @@ var AppGenerator = module.exports = function Appgenerator(args, options, config)
 		} else {
 				console.log('\n\nDone. Running ' + 'npm install & bower install'.bold.yellow + ' for you to install the required dependencies. If this fails, try running the command yourself.\n\n');
 				var cmdExt = ( os.platform() === 'win32' ) ? '.cmd' : '';
-				spawn('npm'+cmdExt, ['install'], { stdio: 'inherit' });
-				spawn('bower'+cmdExt, ['install'], { stdio: 'inherit' });
+				spawn('npm' + cmdExt, ['install'], { stdio: 'inherit' });
+				spawn('bower' + cmdExt, ['install'], { stdio: 'inherit' });
 		}
 	});
 
@@ -83,12 +83,6 @@ AppGenerator.prototype.editorConfig = function editorConfig() {
 	this.copy('editorconfig', '.editorconfig');
 };
 
-AppGenerator.prototype.misc = function misc() {
-	this.copy('favicon.ico', 'app/favicon.ico');
-	this.copy('404.html', 'app/404.html');
-	this.copy('robots.txt', 'app/robots.txt');
-};
-
 AppGenerator.prototype.app = function app() {
 	this.mkdir('app');
 	this.mkdir('app/scripts');
@@ -96,6 +90,19 @@ AppGenerator.prototype.app = function app() {
 	this.mkdir('app/images');
 	this.write('app/index.html', this.indexFile);
 	this.write('app/scripts/main.js', this.mainJsFile);
+};
+
+AppGenerator.prototype.misc = function misc() {
+	this.copy('favicon.ico', 'app/favicon.ico');
+	this.copy('404.html', 'app/404.html');
+	this.copy('robots.txt', 'app/robots.txt');
+};
+
+AppGenerator.prototype.content = function content() {
+	this.mkdir('app/pages');
+	this.mkdir('app/pages/partials');
+	this.mkdir('app/templates');
+	//this.copy('index.html', 'app/pages/index.html');
 };
 
 AppGenerator.prototype.scss = function scss() {
